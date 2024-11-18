@@ -19,7 +19,24 @@
     </form>
     <?php
 
-    // Digitar PHP (1º Aqui)
+    if($_SERVER['REQUEST_METHOD']== 'POST'){
+
+        $nome = $_POST['nome'];
+        $senha = $_POST['senha'];
+
+        //Abreo o arquivo 'usuarios.txt'
+        //adiciona dados no final do arquivo
+        $arquivo = fopen('usuarios.txt', 'a');
+        
+        //cria uma linha com o nome e senha separados por ';' 
+        $linha = $nome . ';' . 3$senha . '/n';
+        
+        //escreve no arquivo
+        fwrite($arquivo,$linha);
+
+        //fecha o arquivo
+        fclose($arquivo);
+    }
     
     ?>
 </body>
