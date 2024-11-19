@@ -1,4 +1,5 @@
 <!-- Passar id via URL -->
+<!-- Passar id via URL -->
 <!-- http://localhost/php-basico-Alunos/12_atualizar.php?id=1-->
 
 
@@ -7,7 +8,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "exercicio";
+$dbname = "exercicios";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -34,18 +35,31 @@ if (isset($_GET['id'])) {
     }
 }
 
+// Verifica se o formulario fio enviado para atualizar o cliente
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'];
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
 
-// Digitar PHP + SQL (1º Aqui)
+    $sql = "UPDATE clientes SET nome='$nome', email='$email' WHERE id='$id'";
 
+    if ($conn->query($sql) === TRUE) {
+        echo "<p>Cliente atualizado com sucesso</p>";
+    } else {
+        echo "<p>Erro ao atualizar cliente: " . $conn->error . "</p>";
+    }
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Editar Cliente</title>
 </head>
+
 <body>
     <form method="post" action="">
         <input type="hidden" name="id" value="<?php echo $cliente['id'] ?? ''; ?>">
@@ -59,4 +73,5 @@ if (isset($_GET['id'])) {
         <button type="submit">Atualizar</button>
     </form>
 </body>
+
 </html>
